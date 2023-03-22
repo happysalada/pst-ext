@@ -1,0 +1,22 @@
+{
+  "name": "PST",
+  "description": "please send tell",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "permissions": [
+    "activeTab"
+  ],
+  "action": {
+    "default_title": "Message",
+    "default_icon": "favicon.ico",
+    "default_popup": "index.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["app/**.*"]
+    }
+  ],
+  "icons": {
+    "48": "favicon.png"
+  }
+}
