@@ -1,10 +1,3 @@
-window.process = {
-  env: {
-    NODE_ENV: import.meta.env.MODE === 'production' ? 'production' : 'development',
-    // Add any other environment variables you need to access from your extension.
-  },
-};
-
 import { defaultEvmStores } from "ethers-svelte";
 import { createMetaMaskProvider } from "metamask-extension-provider";
 import { signer } from 'ethers-svelte'
