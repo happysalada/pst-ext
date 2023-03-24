@@ -12,6 +12,7 @@
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.0.0-beta.12",
     "@rollup/plugin-inject": "^5.0.3",
+    "@rollup/plugin-node-resolve": "^15.0.1",
     "@sveltejs/vite-plugin-svelte": "^2.0.2",
     "@tsconfig/svelte": "^3.0.0",
     "@types/chrome": "^0.0.225",
@@ -26,6 +27,7 @@
     "vite": "^4.1.0"
   },
   "dependencies": {
+    "@metamask/providers": "^10.2.1",
     "@xmtp/xmtp-js": "^7.14.1",
     "ethers-svelte": "^3.0.0",
     "metamask-extension-provider": "^3.0.0"

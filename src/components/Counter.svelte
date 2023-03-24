@@ -1,4 +1,9 @@
 <script lang="ts">
+  import { defaultEvmStores } from "ethers-svelte";
+  import { signer } from 'ethers-svelte'
+  import { createExternalExtensionProvider } from '@metamask/providers';
+  import { onMount } from "svelte";
+
   export let count: number;
   let message: string = null;
 
@@ -14,6 +19,27 @@
       }, 2000);
     });
   };
+
+
+  onMount(async () => {
+    
+    const provider = createExternalExtensionProvider();
+    console.log(provider)
+
+    defaultEvmStores.setProvider(provider);
+
+    signer.subscribe(async $signer => {
+      console.log("signer subcribed");
+      if (!$signer) return
+      console.log("signer found");
+      // Create the client with your wallet. This will connect to the XMTP development network by default
+      // const xmtp = await Client.create($signer, { env: "production"});
+      // console.log("client created")
+      // xmtpClient.set(xmtp);
+      // console.log("client set")
+    })
+    console.log("still connected")
+  })
 </script>
 
 <div class=" bg-blue-50 min-w-[20rem] p-4 flex flex-col gap-4">

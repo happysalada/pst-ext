@@ -6,6 +6,9 @@ import stdLibBrowser from "node-stdlib-browser";
 import inject from "@rollup/plugin-inject";
 
 export default defineConfig({
+  resolve: {
+		alias: stdLibBrowser,
+	},
   plugins: [
     {
       ...inject({
