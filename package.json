@@ -14,6 +14,7 @@
     "@rollup/plugin-inject": "^5.0.3",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@sveltejs/vite-plugin-svelte": "^2.0.2",
+    "@tailwindcss/forms": "^0.5.3",
     "@tsconfig/svelte": "^3.0.0",
     "@types/chrome": "^0.0.225",
     "autoprefixer": "^10.4.13",
