@@ -1,19 +1,24 @@
 <script lang="ts">
   import { xmtpClient, conversations, router } from "../popup/stores";
-  import { State } from "../popup/index";
+  import { State } from "../utils";
 
-  let newConversationPeerAddress: string;
+  export let newConversationPeerAddress = "";
   let newConversationFirstMessage: string;
   let inviteLink: string;
 
   async function createConversation(): Promise<void> {
     if (!$xmtpClient) return;
-    // TODO figure out why adding a conversationId crashes this
-    const newConversation = await $xmtpClient.conversations.newConversation(newConversationPeerAddress);
-    conversations.set([newConversation, ...$conversations]);
-    await newConversation.send(newConversationFirstMessage);
-    let timestamp = newConversation.createdAt.getTime();
-    inviteLink = `https://pst.sassy.technology/invite/${timestamp}`;
+    try {
+      // TODO figure out why adding a conversationId crashes this
+      const newConversation = await $xmtpClient.conversations.newConversation(newConversationPeerAddress);
+      conversations.set([newConversation, ...$conversations]);
+      await newConversation.send(newConversationFirstMessage);
+      let timestamp = newConversation.createdAt.getTime();
+      inviteLink = `https://pst.sassy.technology/invite/${timestamp}`;
+    } catch(e) {
+      console.log(e)
+      inviteLink = e.toString();
+    }
   }
 </script>
 

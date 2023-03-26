@@ -1,8 +1,7 @@
 <script lang="ts">
   import { signerAddress } from 'ethers-svelte'
-  import { formatEthAddress, timeFromNow } from "../popup/utils";
+  import { formatEthAddress, timeFromNow, State } from "../utils";
   import { conversations, router, messages, selectedConversation } from "../popup/stores";
-  import { State } from "../popup/index";
 
   function setConversation(conversation): void {
      router.set(State.Chat);
@@ -33,11 +32,11 @@
               </a>
               -->
             <div class="pr-1">
-              <a class="inline-flex text-gray-800 hover:text-gray-900" href="#">
+              <div class="inline-flex text-gray-800 hover:text-gray-900">
                 <h2 class="text-xl leading-snug font-bold">
                   {formatEthAddress($signerAddress)}
                 </h2>
-              </a>
+              </div>
             </div>
           </div>
           <!-- Settings button -->

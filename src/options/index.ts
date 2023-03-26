@@ -1,11 +1,12 @@
 // src/options/index.ts
 import '../app.css';
-import Options from '../components/Options.svelte';
+import OptionRouter from '../components/OptionRouter.svelte';
 
-const target = document.getElementById('app');
+const target = document.getElementById('options');
 
-async function render() {
-  new Options({target});
+async function renderOptions() {
+  const {peerAddress} = await chrome.storage.local.get("peerAddress");
+  new OptionRouter({target, props: {peerAddress}});
 }
 
-document.addEventListener('DOMContentLoaded', render);
+document.addEventListener('DOMContentLoaded', renderOptions);

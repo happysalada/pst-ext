@@ -3,15 +3,13 @@
   import type { Message } from "@xmtp/xmtp-js";
   import { xmtpClient, selectedConversation } from "../popup/stores";
   import { onMount } from "svelte";
-  import { timeFromNow } from "../popup/utils";
+  import { timeFromNow } from "../utils";
 
   let newMessage: string;
   let messages: Message[] = [];
 
   onMount(async () => {
-    console.log("chat mounted", $selectedConversation);
     messages = await $selectedConversation.messages();
-    console.log("messages found", messages);
   });
 
   async function sendMessage(): Promise<void> {

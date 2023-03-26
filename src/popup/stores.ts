@@ -1,7 +1,7 @@
 import { derived, writable } from 'svelte/store';
 import { signer } from 'ethers-svelte'
 import { Client } from "@xmtp/xmtp-js";
-import { State } from "./index";
+import { State } from "../utils";
 
 export const xmtpClient = derived(signer, ($signer, set) => {
   if ($signer) {

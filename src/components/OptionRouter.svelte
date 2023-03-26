@@ -2,12 +2,18 @@
   import { defaultEvmStores } from "ethers-svelte";
   import { createExternalExtensionProvider } from '@metamask/providers';
   import { onMount } from "svelte";
-  import { xmtpClient, conversations, messages, router } from "../popup/stores";
+  import { xmtpClient, router, selectedConversation } from "../popup/stores";
   import { State } from "../utils";
+  import type { Conversation } from "@xmtp/xmtp-js";
 
   import NewChat from "./NewChat.svelte";
   import Chat from "./Chat.svelte";
   import Inbox from "./Inbox.svelte";
+
+  export let peerAddress: string;
+  console.log("received peer address", peerAddress);
+
+  let conversation: Conversation;
 
   // TODO find a way to cache conversations from different wallets
   // TODO find a way to use chrome async storage
@@ -20,9 +26,6 @@
   //   }, 2000);
   // });
 
-  console.log("rendering normal router");
-  router.set(State.Inbox);
-
   onMount(async () => {
     if (!$xmtpClient) {
       const provider = createExternalExtensionProvider();
@@ -31,15 +34,13 @@
     xmtpClient.subscribe(async client => {
       if(!client) return;
       let asyncConversations = await client.conversations.list();
-      conversations.set(asyncConversations);
-      conversations.subscribe(conversations => {
-        conversations.forEach(async conversation => {
-          const [message] = await conversation.messages({ limit: 1});
-          if (message) {
-            $messages[conversation.topic] = message;
-          }
-        })
-      })
+      conversation = asyncConversations.find(conversation => conversation.peerAddress == peerAddress);
+      if(!conversation) {
+        router.set(State.NewChat);
+      } else {
+        selectedConversation.set(conversation);
+        router.set(State.Chat);
+      };
     });
   })
 
@@ -49,7 +50,7 @@
 {#if $router == State.Inbox}
   <Inbox />
 {:else if $router == State.NewChat}
-  <NewChat />
+  <NewChat newConversationPeerAddress={peerAddress}/>
 {:else if $router == State.Chat}
   <Chat />
 {/if}

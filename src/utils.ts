@@ -58,3 +58,9 @@ export function formatEthAddress(address: string) {
 
   return `${firstFour}...${lastFour}`;
 }
+
+export enum State {
+  Inbox,
+  NewChat,
+  Chat,
+} 
